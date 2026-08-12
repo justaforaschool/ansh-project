@@ -1,392 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="A journey through places associated with Shri Ram Ji's exile journey." />
-  <title>Ram Ji's Journey — Sacred Places</title>
-  <style>
-    :root {
-      --bg: #fff8ec;
-      --card: rgba(255,255,255,.92);
-      --text: #3a2417;
-      --muted: #765945;
-      --saffron: #d96b1f;
-      --deep: #7c2d12;
-      --gold: #e8aa35;
-      --line: #f1d7b6;
-      --shadow: 0 18px 45px rgba(93, 48, 15, .12);
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: Georgia, 'Times New Roman', serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 10% 10%, rgba(232,170,53,.18), transparent 28%),
-        radial-gradient(circle at 90% 20%, rgba(217,107,31,.13), transparent 25%),
-        var(--bg);
-      min-height: 100vh;
-    }
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: blur(12px);
-      background: rgba(255,248,236,.86);
-      border-bottom: 1px solid var(--line);
-    }
-    .topbar-inner {
-      width: min(1180px, 92%);
-      margin: auto;
-      min-height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-    }
-    .brand { font-weight: 800; letter-spacing: .3px; color: var(--deep); }
-    .brand span { color: var(--saffron); }
-    .nav-actions { display:flex; gap:8px; flex-wrap:wrap; }
-    button, .pill-link {
-      border: 1px solid #e7c497;
-      background: #fffdf8;
-      color: var(--deep);
-      padding: 9px 13px;
-      border-radius: 999px;
-      cursor: pointer;
-      font: inherit;
-      text-decoration: none;
-    }
-    button:hover, .pill-link:hover { background: #fff3df; }
-    .hero {
-      width: min(1180px, 92%);
-      margin: 34px auto 18px;
-      padding: 44px 28px;
-      border: 1px solid var(--line);
-      border-radius: 30px;
-      background: linear-gradient(135deg, rgba(255,255,255,.94), rgba(255,239,210,.9));
-      box-shadow: var(--shadow);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before, .hero::after {
-      content: 'ॐ';
-      position: absolute;
-      font-size: 100px;
-      opacity: .07;
-      color: var(--saffron);
-    }
-    .hero::before { left: 18px; top: 8px; }
-    .hero::after { right: 18px; bottom: 2px; }
-    .eyebrow { color: var(--saffron); font-weight:700; letter-spacing:2px; text-transform:uppercase; font-size:.85rem; }
-    h1 { margin: 10px 0; font-size: clamp(2rem, 4vw, 4rem); color: var(--deep); }
-    .hero p { max-width: 800px; margin: 12px auto 0; line-height: 1.75; color: var(--muted); font-size: 1.06rem; }
-
-    .layout {
-      width: min(1180px, 92%);
-      margin: 22px auto 60px;
-      display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: 22px;
-      align-items: start;
-    }
-    .sidebar, .content-card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-    }
-    .sidebar { padding: 16px; position: sticky; top: 84px; max-height: calc(100vh - 104px); overflow:auto; }
-    .sidebar h2 { margin: 5px 8px 15px; font-size: 1.1rem; color: var(--deep); }
-    .place-btn {
-      width: 100%;
-      text-align: left;
-      padding: 12px 13px;
-      margin: 4px 0;
-      border-radius: 15px;
-      border: 1px solid transparent;
-      background: transparent;
-      color: var(--text);
-    }
-    .place-btn.active { background: #fff0d6; border-color: #edc88f; color: var(--deep); font-weight: 700; }
-    .place-btn small { display:block; opacity:.7; margin-top:3px; font-size:.78rem; }
-
-    .content-card { padding: 30px; }
-    .place-header { display:flex; justify-content:space-between; gap:20px; align-items:flex-start; border-bottom:1px solid var(--line); padding-bottom:20px; }
-    .title-wrap h2 { margin: 0; font-size: clamp(2rem, 5vw, 3rem); color: var(--deep); }
-    .subtitle { margin-top:8px; color: var(--muted); }
-    .qr-box { width:170px; flex:0 0 170px; text-align:center; }
-    #qrcode { background:#fff; padding:10px; border:1px solid var(--line); border-radius:14px; display:inline-flex; }
-    .qr-label { font-size:.78rem; color:var(--muted); margin-top:7px; }
-
-    .sections { display:grid; gap:18px; margin-top:22px; }
-    .section {
-      padding: 20px;
-      border:1px solid var(--line);
-      border-radius:18px;
-      background: linear-gradient(180deg, #fffdfa, #fff8ef);
-    }
-    .section h3 { margin:0 0 9px; color:var(--saffron); font-size:1.2rem; }
-    .section p { margin:0; line-height:1.75; color:#553a27; }
-    .places-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:9px; margin:0; padding:0; list-style:none; }
-    .places-list li { padding:11px 12px; background:#fff; border:1px solid var(--line); border-radius:12px; }
-    .special { border-left:5px solid var(--gold); }
-    .footer { text-align:center; padding:28px 16px 48px; color:var(--muted); font-size:.9rem; }
-
-    @media (max-width: 850px) {
-      .layout { grid-template-columns:1fr; }
-      .sidebar { position:static; max-height:none; }
-      .place-header { flex-direction:column; }
-      .qr-box { align-self:center; }
-    }
-    @media (max-width: 520px) {
-      .hero { padding: 32px 18px; border-radius:22px; }
-      .content-card { padding: 18px; }
-      .topbar-inner { min-height: auto; padding: 12px 0; }
-      .nav-actions { display:none; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ram Ji's Exile Journey</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Georgia,"Times New Roman",serif;background:#fff8e8;color:#3b2414}
+.page{min-height:100vh;padding:25px 15px}
+.card{max-width:850px;margin:auto;background:#fffdf7;border:1px solid #ead7b2;border-radius:20px;padding:32px;box-shadow:0 10px 30px rgba(80,45,10,.12)}
+.icon{text-align:center;font-size:48px}
+h1{text-align:center;color:#8b4513;font-size:42px;margin:8px 0}
+.subtitle{text-align:center;color:#76553a;margin-bottom:28px}
+section{margin:20px 0;padding:18px;background:#fff8ec;border-left:5px solid #d88924;border-radius:10px}
+h2{margin:0 0 10px;color:#9b4f16;font-size:21px}
+p{line-height:1.7;margin:0}
+ul{line-height:1.8;margin:8px 0;padding-left:25px}
+.special{background:#fff3cf;border-left-color:#b87900}
+.error{text-align:center;padding:60px 15px}
+@media(max-width:600px){.card{padding:20px 15px}h1{font-size:32px}}
+</style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div class="brand">🛕 <span>Ram Ji's Journey</span></div>
-      <div class="nav-actions">
-        <button id="copyLinkBtn" type="button">Copy Location Link</button>
-        <a class="pill-link" href="./">All Locations</a>
-      </div>
-    </div>
-  </header>
+<div class="page">
+<div class="card" id="app"></div>
+</div>
 
-  <section class="hero">
-    <div class="eyebrow">A Sacred Journey Through India</div>
-    <h1>Places Connected with Ram Ji</h1>
-    <p>
-      Explore the important places associated with Ram Ji, Sita Ji and Lakshman Ji during the traditional account of their exile journey.
-      Every QR code can open this same website directly at its corresponding location.
-    </p>
-  </section>
+<script>
+var locations = {
+"ayodhya": {
+icon:"🛕", title:"AYODHYA",
+about:"Ayodhya is an ancient city on the banks of the Sarayu River in Uttar Pradesh. It is traditionally regarded as the birthplace of Lord Ram.",
+connection:"Ayodhya was the kingdom of Ram Ji. He left Ayodhya with Sita Ji and Lakshman Ji to begin his 14-year exile. After completing the exile, they returned to Ayodhya.",
+special:"Ayodhya is one of the most important pilgrimage cities associated with Lord Ram. It is famous for its temples, ghats and Ramayana heritage.",
+places:["Ram Mandir","Hanuman Garhi","Kanak Bhawan","Saryu Ghat","Dasharath Bhawan"],
+food:"Ayodhya is known for traditional North Indian vegetarian food, sweets and local snacks.",
+message:"Ayodhya represents the beginning and end of Ram Ji’s exile journey—he left from here and returned here after 14 years."
+},
+"sringaverapura": {
+icon:"🌊", title:"SRINGAVERAPURA",
+about:"Sringaverapura was an ancient settlement situated near the Ganga River, traditionally identified with the present-day Singraur area of Uttar Pradesh.",
+connection:"During his exile, Ram Ji, along with Sita Ji and Lakshman Ji, reached Sringaverapura after leaving Ayodhya. The Ramayana tradition connects this place with Nishadraj Guha, who welcomed and helped them.",
+special:"The area is important for its ancient archaeological remains and its connection with the Ramayana tradition.",
+places:["Ancient archaeological site","Ganga River and nearby ghats","Places associated with Nishadraj Guha"],
+message:"Sringaverapura is remembered as an important early stop in Ram Ji’s journey into exile."
+},
+"prayag": {
+icon:"🛕", title:"PRAYAG",
+about:"Prayag, now known as Prayagraj, is a historic city in Uttar Pradesh. It is famous for the Triveni Sangam, the meeting point of the Ganga, Yamuna and traditionally believed Saraswati rivers.",
+connection:"During his exile, Ram Ji, Sita Ji and Lakshman Ji travelled to Prayag and visited the ashram of Sage Bharadwaj. Sage Bharadwaj guided them towards Chitrakoot.",
+special:"Prayagraj is an important pilgrimage and cultural centre, especially because of the Triveni Sangam.",
+places:["Triveni Sangam","Bharadwaj Ashram","Allahabad Fort","Bade Hanuman Mandir"],
+message:"Prayag was an important stop where Ram Ji received guidance before continuing towards Chitrakoot."
+},
+"chitrakoot": {
+icon:"🌳", title:"CHITRAKOOT",
+about:"Chitrakoot is a beautiful pilgrimage town associated with the Ramayana. It is located in the Vindhya region, on the Uttar Pradesh–Madhya Pradesh border.",
+connection:"During his 14-year exile, Ram Ji, Sita Ji and Lakshman Ji spent a significant period in Chitrakoot. They lived in the forest and visited the Mandakini River.",
+special:"Chitrakoot is famous for its spiritual importance, forests, hills, rivers and many temples connected with the Ramayana tradition.",
+places:["Ramghat","Kamadgiri","Hanuman Dhara","Gupt Godavari","Sati Anasuya Ashram","Mandakini River"],
+message:"Chitrakoot is one of the most important places associated with Ram Ji's life during exile."
+},
+"dandakaranya": {
+icon:"🌲", title:"DANDAKARANYA",
+about:"Dandakaranya was a vast forest region mentioned in the Ramayana. It covered parts of present-day central and southern India.",
+connection:"During their exile, Ram Ji, Sita Ji and Lakshman Ji travelled through the forests of Dandakaranya. They met several sages and lived in the forest.",
+special:"The region is known for its forests, tribal culture, rivers and natural beauty.",
+places:["Dense forest regions","Tribal cultural areas","Waterfalls and rivers","Wildlife and natural landscapes"],
+message:"Dandakaranya represents the long forest journey of Ram Ji during his exile."
+},
+"panchavati": {
+icon:"🌿", title:"PANCHAVATI / NASHIK",
+about:"Panchavati is an important area of Nashik, Maharashtra, situated near the Godavari River.",
+connection:"Ram Ji, Sita Ji and Lakshman Ji lived at Panchavati during their exile. Many important events of the Ramayana are traditionally associated with this place, including Sita Ji's abduction by Ravana.",
+special:"Panchavati is a major pilgrimage area and is famous for its temples and connection with the Ramayana.",
+places:["Ram Kund","Kalaram Temple","Sita Gufa","Panchavati area","Godavari River ghats"],
+message:"Panchavati is one of the most important places connected with Ram Ji, Sita Ji and Lakshman Ji during their exile."
+},
+"kishkindha": {
+icon:"🐒", title:"KISHKINDHA",
+about:"Kishkindha is the ancient kingdom associated with the Vanaras in the Ramayana. It is traditionally connected with the Hampi region of Karnataka.",
+connection:"Ram Ji met Hanuman Ji and Sugriva here. Ram helped Sugriva, and the Vanara army helped Ram search for Sita Ji.",
+special:"The Hampi region is famous for its ancient monuments, rocky hills and temples.",
+places:["Hampi","Anjanadri Hill","Tungabhadra River","Virupaksha Temple","Matanga Hill"],
+message:"Kishkindha is remembered as the place where Ram Ji met Hanuman Ji."
+},
+"rameswaram": {
+icon:"🌊", title:"RAMESWARAM",
+about:"Rameswaram is a famous pilgrimage town on Pamban Island in Tamil Nadu, near the southern coast of India.",
+connection:"According to the Ramayana tradition, Ram Ji reached the southern coast with the Vanara army while preparing to travel to Lanka. The tradition associates the area with the Ram Setu.",
+special:"Rameswaram is one of India's important pilgrimage destinations and is famous for its temples and beautiful coastal surroundings.",
+places:["Ramanathaswamy Temple","Pamban Bridge","Dhanushkodi","Agni Theertham","Ram Setu area"],
+message:"Rameswaram is traditionally associated with the journey towards Lanka and the Ram Setu."
+},
+"lanka": {
+icon:"🏝️", title:"LANKA",
+about:"Lanka is the island kingdom ruled by Ravana in the Ramayana. It is traditionally associated with present-day Sri Lanka.",
+connection:"Ram Ji's army crossed towards Lanka to rescue Sita Ji. Ram Ji fought Ravana and defeated him, after which Sita Ji was reunited with Ram Ji.",
+special:"Sri Lanka is famous for its beautiful beaches, forests, mountains, ancient cities and cultural heritage.",
+places:["Sigiriya","Kandy","Galle","Colombo","Ancient Anuradhapura"],
+message:"Lanka represents the final great battle of Ram Ji's exile journey."
+}
+};
 
-  <main class="layout">
-    <aside class="sidebar">
-      <h2>📍 Locations</h2>
-      <div id="placeList"></div>
-    </aside>
+function getPlace(){
+var params=new URLSearchParams(window.location.search);
+return params.get("place");
+}
 
-    <article class="content-card">
-      <div class="place-header">
-        <div class="title-wrap">
-          <div class="eyebrow" id="placeTag"></div>
-          <h2 id="placeTitle"></h2>
-          <div class="subtitle" id="placeSubtitle"></div>
-        </div>
-        <div class="qr-box">
-          <div id="qrcode" aria-label="QR code for this location"></div>
-          <div class="qr-label">Scan to open this location</div>
-        </div>
-      </div>
+function show(){
+var key=getPlace();
+var data=locations[key];
+var app=document.getElementById("app");
 
-      <div class="sections">
-        <section class="section">
-          <h3>📖 About the Place</h3>
-          <p id="about"></p>
-        </section>
+if(!data){
+app.innerHTML='<div class="error"><div class="icon">🕉️</div><h1>Location Not Found</h1><p>Please scan a valid location QR code.</p></div>';
+return;
+}
 
-        <section class="section">
-          <h3>🙏 Connection with Ram Ji</h3>
-          <p id="connection"></p>
-        </section>
+var places="";
+if(data.places){
+places="<section><h2>📍 Famous Places Today</h2><ul>";
+for(var i=0;i<data.places.length;i++){places+="<li>"+data.places[i]+"</li>";}
+places+="</ul></section>";
+}
 
-        <section class="section">
-          <h3>⭐ What is Special Today</h3>
-          <p id="today"></p>
-        </section>
+var food="";
+if(data.food){
+food="<section><h2>🍛 Famous Food</h2><p>"+data.food+"</p></section>";
+}
 
-        <section class="section">
-          <h3>📍 Famous Places / Things Today</h3>
-          <ul class="places-list" id="famous"></ul>
-        </section>
+app.innerHTML=
+'<div class="icon">'+data.icon+'</div>'+
+'<h1>'+data.title+'</h1>'+
+'<div class="subtitle">Ram Ji’s Exile Journey</div>'+
+'<section><h2>About the Place</h2><p>'+data.about+'</p></section>'+
+'<section><h2>Connection with Ram Ji</h2><p>'+data.connection+'</p></section>'+
+'<section><h2>⭐ What is Special Today</h2><p>'+data.special+'</p></section>'+
+places+food+
+'<section class="special"><h2>🌟 Special Message</h2><p>'+data.message+'</p></section>';
+}
 
-        <section class="section special">
-          <h3>🌟 Special Point</h3>
-          <p id="special"></p>
-        </section>
-      </div>
-    </article>
-  </main>
-
-  <footer class="footer">Made as one website for multiple location QR codes • Ram Ji's Journey</footer>
-
-  <!-- QR library. The website still works without QR rendering if the CDN is temporarily unavailable. -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <script>
-    // SOURCE CONTENT: user-provided Ayodhya details + uploaded location material.
-    // Current source material contains 9 locations in total.
-    const locations = {
-      ayodhya: {
-        name: 'AYODHYA', icon: '🛕', subtitle: 'Uttar Pradesh • Beginning and return of the exile journey',
-        about: 'Ayodhya is an ancient city on the banks of the Sarayu River in Uttar Pradesh. It is traditionally regarded as the birthplace of Lord Ram.',
-        connection: 'Ayodhya was the kingdom of Ram Ji. He left Ayodhya with Sita Ji and Lakshman Ji to begin his 14-year exile. After completing the exile, they returned to Ayodhya.',
-        today: 'Ayodhya is one of the most important pilgrimage cities associated with Lord Ram. It is famous for its temples, ghats and Ramayana heritage.',
-        famous: ['Ram Mandir', 'Hanuman Garhi', 'Kanak Bhawan', 'Saryu Ghat', 'Dasharath Bhawan'],
-        special: 'Ayodhya represents the beginning and end of Ram Ji’s exile journey—he left from here and returned here after 14 years.'
-      },
-      sringaverapura: {
-        name: 'SRINGAVERAPURA', icon: '🌊', subtitle: 'Near the Ganga River • Early stop during exile',
-        about: 'Sringaverapura was an ancient settlement situated near the Ganga River, traditionally identified with the present-day Singraur area of Uttar Pradesh.',
-        connection: 'During his exile, Ram Ji, along with Sita Ji and Lakshman Ji, reached Sringaverapura after leaving Ayodhya. The Ramayana tradition connects this place with Nishadraj Guha, who welcomed and helped them.',
-        today: 'The area is important for its ancient archaeological remains and its connection with the Ramayana tradition.',
-        famous: ['Ancient archaeological site', 'Ganga River and nearby ghats', 'Places associated with Nishadraj Guha'],
-        special: 'Sringaverapura is remembered as an important early stop in Ram Ji’s journey into exile.'
-      },
-      prayag: {
-        name: 'PRAYAG', icon: '🕉️', subtitle: 'Prayagraj, Uttar Pradesh • Guidance before Chitrakoot',
-        about: 'Prayag, now known as Prayagraj, is a historic city in Uttar Pradesh. It is famous for the Triveni Sangam, the meeting point of the Ganga, Yamuna and traditionally believed Saraswati rivers.',
-        connection: 'During his exile, Ram Ji, Sita Ji and Lakshman Ji travelled to Prayag and visited the ashram of Sage Bharadwaj. Sage Bharadwaj guided them towards Chitrakoot.',
-        today: 'Prayagraj is an important pilgrimage and cultural centre, especially because of the Triveni Sangam.',
-        famous: ['Triveni Sangam', 'Bharadwaj Ashram', 'Allahabad Fort', 'Bade Hanuman Mandir'],
-        special: 'Prayag was an important stop where Ram Ji received guidance before continuing towards Chitrakoot.'
-      },
-      chitrakoot: {
-        name: 'CHITRAKOOT', icon: '🌳', subtitle: 'Uttar Pradesh–Madhya Pradesh border • A major exile home',
-        about: 'Chitrakoot is a beautiful pilgrimage town associated with the Ramayana. It is located in the Vindhya region, on the Uttar Pradesh–Madhya Pradesh border.',
-        connection: 'During his 14-year exile, Ram Ji, Sita Ji and Lakshman Ji spent a significant period in Chitrakoot. They lived in the forest and visited the Mandakini River.',
-        today: 'Chitrakoot is famous for its spiritual importance, forests, hills, rivers and many temples connected with the Ramayana tradition.',
-        famous: ['Ramghat', 'Kamadgiri', 'Hanuman Dhara', 'Gupt Godavari', 'Sati Anasuya Ashram', 'Mandakini River'],
-        special: 'Chitrakoot is one of the most important places associated with Ram Ji’s life during exile.'
-      },
-      dandakaranya: {
-        name: 'DANDAKARANYA', icon: '🌲', subtitle: 'Central and southern India • The long forest journey',
-        about: 'Dandakaranya was a vast forest region mentioned in the Ramayana. It covered parts of present-day central and southern India.',
-        connection: 'During their exile, Ram Ji, Sita Ji and Lakshman Ji travelled through the forests of Dandakaranya. They met several sages and lived in the forest.',
-        today: 'The region is known for its forests, tribal culture, rivers and natural beauty.',
-        famous: ['Dense forest regions', 'Tribal cultural areas', 'Waterfalls and rivers', 'Wildlife and natural landscapes'],
-        special: 'Dandakaranya represents the long forest journey of Ram Ji during his exile.'
-      },
-      panchavati: {
-        name: 'PANCHAVATI / NASHIK', icon: '🌿', subtitle: 'Nashik, Maharashtra • Godavari River region',
-        about: 'Panchavati is an important area of Nashik, Maharashtra, situated near the Godavari River.',
-        connection: 'Ram Ji, Sita Ji and Lakshman Ji lived at Panchavati during their exile. Many important events of the Ramayana are traditionally associated with this place, including Sita Ji’s abduction by Ravana.',
-        today: 'Panchavati is a major pilgrimage area and is famous for its temples and connection with the Ramayana.',
-        famous: ['Ram Kund', 'Kalaram Temple', 'Sita Gufa', 'Panchavati area', 'Godavari River ghats'],
-        special: 'Panchavati is one of the most important places connected with Ram Ji, Sita Ji and Lakshman Ji during their exile.'
-      },
-      kishkindha: {
-        name: 'KISHKINDHA', icon: '🐒', subtitle: 'Hampi region, Karnataka • Meeting with Hanuman Ji',
-        about: 'Kishkindha is the ancient kingdom associated with the Vanaras in the Ramayana. It is traditionally connected with the Hampi region of Karnataka.',
-        connection: 'Ram Ji met Hanuman Ji and Sugriva here. Ram helped Sugriva, and the Vanara army helped Ram search for Sita Ji.',
-        today: 'The Hampi region is famous for its ancient monuments, rocky hills and temples.',
-        famous: ['Hampi', 'Anjanadri Hill', 'Tungabhadra River', 'Virupaksha Temple', 'Matanga Hill'],
-        special: 'Kishkindha is remembered as the place where Ram Ji met Hanuman Ji.'
-      },
-      rameswaram: {
-        name: 'RAMESWARAM', icon: '🌊', subtitle: 'Tamil Nadu • The journey towards Lanka',
-        about: 'Rameswaram is a famous pilgrimage town on Pamban Island in Tamil Nadu, near the southern coast of India.',
-        connection: 'According to the Ramayana tradition, Ram Ji reached the southern coast with the Vanara army while preparing to travel to Lanka. The tradition associates the area with the Ram Setu.',
-        today: 'Rameswaram is one of India’s important pilgrimage destinations and is famous for its temples and beautiful coastal surroundings.',
-        famous: ['Ramanathaswamy Temple', 'Pamban Bridge', 'Dhanushkodi', 'Agni Theertham', 'Ram Setu area'],
-        special: 'Rameswaram is traditionally associated with the journey towards Lanka and the Ram Setu.'
-      },
-      lanka: {
-        name: 'LANKA', icon: '🏝️', subtitle: 'Traditionally associated with present-day Sri Lanka • Final great battle',
-        about: 'Lanka is the island kingdom ruled by Ravana in the Ramayana. It is traditionally associated with present-day Sri Lanka.',
-        connection: 'Ram Ji’s army crossed towards Lanka to rescue Sita Ji. Ram Ji fought Ravana and defeated him, after which Sita Ji was reunited with Ram Ji.',
-        today: 'Sri Lanka is famous for its beautiful beaches, forests, mountains, ancient cities and cultural heritage.',
-        famous: ['Sigiriya', 'Kandy', 'Galle', 'Colombo', 'Ancient Anuradhapura'],
-        special: 'Lanka represents the final great battle of Ram Ji’s exile journey.'
-      }
-    };
-
-    const order = ['ayodhya','sringaverapura','prayag','chitrakoot','dandakaranya','panchavati','kishkindha','rameswaram','lanka'];
-    const params = new URLSearchParams(window.location.search);
-    let currentKey = (params.get('place') || 'ayodhya').toLowerCase();
-    if (!locations[currentKey]) currentKey = 'ayodhya';
-
-    const placeList = document.getElementById('placeList');
-    order.forEach(key => {
-      const item = locations[key];
-      const btn = document.createElement('button');
-      btn.className = 'place-btn';
-      btn.dataset.key = key;
-      btn.innerHTML = `${item.icon} ${item.name}<small>${item.subtitle.split('•')[0].trim()}</small>`;
-      btn.addEventListener('click', () => selectPlace(key, true));
-      placeList.appendChild(btn);
-    });
-
-    function getUrlFor(key) {
-      const url = new URL(window.location.href);
-      url.search = '';
-      url.searchParams.set('place', key);
-      return url.toString();
-    }
-
-    function renderQr(key) {
-      const box = document.getElementById('qrcode');
-      box.innerHTML = '';
-      if (window.QRCode) {
-        new QRCode(box, {
-          text: getUrlFor(key),
-          width: 150,
-          height: 150,
-          colorDark: '#3a2417',
-          colorLight: '#ffffff',
-          correctLevel: QRCode.CorrectLevel.H
-        });
-      } else {
-        const p = document.createElement('div');
-        p.style.padding = '12px';
-        p.style.fontSize = '.78rem';
-        p.style.color = '#765945';
-        p.textContent = 'QR library unavailable. Copy the location link below.';
-        box.appendChild(p);
-      }
-    }
-
-    function selectPlace(key, updateUrl) {
-      currentKey = key;
-      const item = locations[key];
-      document.title = `${item.name} — Ram Ji's Journey`;
-      document.getElementById('placeTag').textContent = `${item.icon} Sacred Location`;
-      document.getElementById('placeTitle').textContent = item.name;
-      document.getElementById('placeSubtitle').textContent = item.subtitle;
-      document.getElementById('about').textContent = item.about;
-      document.getElementById('connection').textContent = item.connection;
-      document.getElementById('today').textContent = item.today;
-      document.getElementById('special').textContent = item.special;
-      const famous = document.getElementById('famous');
-      famous.innerHTML = '';
-      item.famous.forEach(place => {
-        const li = document.createElement('li');
-        li.textContent = place;
-        famous.appendChild(li);
-      });
-      document.querySelectorAll('.place-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.key === key));
-      renderQr(key);
-      if (updateUrl) history.pushState({}, '', getUrlFor(key));
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    document.getElementById('copyLinkBtn').addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(getUrlFor(currentKey));
-        const btn = document.getElementById('copyLinkBtn');
-        const old = btn.textContent;
-        btn.textContent = 'Copied!';
-        setTimeout(() => btn.textContent = old, 1400);
-      } catch {
-        alert(getUrlFor(currentKey));
-      }
-    });
-
-    window.addEventListener('popstate', () => {
-      const key = new URLSearchParams(window.location.search).get('place') || 'ayodhya';
-      selectPlace(locations[key] ? key : 'ayodhya', false);
-    });
-
-    selectPlace(currentKey, false);
-  </script>
+show();
+</script>
 </body>
 </html>
