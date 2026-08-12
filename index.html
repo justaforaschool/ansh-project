@@ -3,145 +3,1064 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Ram Ji's Exile Journey</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Georgia,"Times New Roman",serif;background:#fff8e8;color:#3b2414}
-.page{min-height:100vh;padding:25px 15px}
-.card{max-width:850px;margin:auto;background:#fffdf7;border:1px solid #ead7b2;border-radius:20px;padding:32px;box-shadow:0 10px 30px rgba(80,45,10,.12)}
-.icon{text-align:center;font-size:48px}
-h1{text-align:center;color:#8b4513;font-size:42px;margin:8px 0}
-.subtitle{text-align:center;color:#76553a;margin-bottom:28px}
-section{margin:20px 0;padding:18px;background:#fff8ec;border-left:5px solid #d88924;border-radius:10px}
-h2{margin:0 0 10px;color:#9b4f16;font-size:21px}
-p{line-height:1.7;margin:0}
-ul{line-height:1.8;margin:8px 0;padding-left:25px}
-.special{background:#fff3cf;border-left-color:#b87900}
-.error{text-align:center;padding:60px 15px}
-@media(max-width:600px){.card{padding:20px 15px}h1{font-size:32px}}
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    background: #fff8e8;
+    color: #3b2414;
+}
+
+.page {
+    min-height: 100vh;
+    padding: 25px 15px;
+}
+
+.card {
+    max-width: 850px;
+    margin: auto;
+    background: #fffdf7;
+    border: 1px solid #ead7b2;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 10px 30px rgba(80, 45, 10, 0.12);
+}
+
+/* Language buttons */
+
+.language-box {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.language-box button {
+    border: 1px solid #c98735;
+    background: #fff8e8;
+    color: #7d4616;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.language-box button:hover {
+    background: #f5dfb5;
+}
+
+.language-box button.active {
+    background: #8b4513;
+    color: white;
+}
+
+.icon {
+    text-align: center;
+    font-size: 48px;
+}
+
+h1 {
+    text-align: center;
+    color: #8b4513;
+    font-size: 42px;
+    margin: 8px 0;
+}
+
+.subtitle {
+    text-align: center;
+    color: #76553a;
+    margin-bottom: 28px;
+}
+
+section {
+    margin: 20px 0;
+    padding: 18px;
+    background: #fff8ec;
+    border-left: 5px solid #d88924;
+    border-radius: 10px;
+}
+
+h2 {
+    margin: 0 0 10px;
+    color: #9b4f16;
+    font-size: 21px;
+}
+
+p {
+    line-height: 1.7;
+    margin: 0;
+}
+
+ul {
+    line-height: 1.8;
+    margin: 8px 0;
+    padding-left: 25px;
+}
+
+.special {
+    background: #fff3cf;
+    border-left-color: #b87900;
+}
+
+.error {
+    text-align: center;
+    padding: 60px 15px;
+}
+
+@media (max-width: 600px) {
+
+    .card {
+        padding: 20px 15px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .language-box {
+        justify-content: center;
+    }
+}
 </style>
 </head>
+
 <body>
+
 <div class="page">
-<div class="card" id="app"></div>
+
+    <div class="card">
+
+        <!-- LANGUAGE SWITCH -->
+        <div class="language-box">
+
+            <button id="englishBtn" onclick="setLanguage('en')">
+                🇬🇧 English
+            </button>
+
+            <button id="hindiBtn" onclick="setLanguage('hi')">
+                🇮🇳 हिन्दी
+            </button>
+
+        </div>
+
+        <!-- LOCATION CONTENT -->
+        <div id="app"></div>
+
+    </div>
+
 </div>
 
+
 <script>
+
+/* =====================================================
+   LOCATION DATA
+   ===================================================== */
+
 var locations = {
-"ayodhya": {
-icon:"🛕", title:"AYODHYA",
-about:"Ayodhya is an ancient city on the banks of the Sarayu River in Uttar Pradesh. It is traditionally regarded as the birthplace of Lord Ram.",
-connection:"Ayodhya was the kingdom of Ram Ji. He left Ayodhya with Sita Ji and Lakshman Ji to begin his 14-year exile. After completing the exile, they returned to Ayodhya.",
-special:"Ayodhya is one of the most important pilgrimage cities associated with Lord Ram. It is famous for its temples, ghats and Ramayana heritage.",
-places:["Ram Mandir","Hanuman Garhi","Kanak Bhawan","Saryu Ghat","Dasharath Bhawan"],
-food:"Ayodhya is known for traditional North Indian vegetarian food, sweets and local snacks.",
-message:"Ayodhya represents the beginning and end of Ram Ji’s exile journey—he left from here and returned here after 14 years."
-},
-"sringaverapura": {
-icon:"🌊", title:"SRINGAVERAPURA",
-about:"Sringaverapura was an ancient settlement situated near the Ganga River, traditionally identified with the present-day Singraur area of Uttar Pradesh.",
-connection:"During his exile, Ram Ji, along with Sita Ji and Lakshman Ji, reached Sringaverapura after leaving Ayodhya. The Ramayana tradition connects this place with Nishadraj Guha, who welcomed and helped them.",
-special:"The area is important for its ancient archaeological remains and its connection with the Ramayana tradition.",
-places:["Ancient archaeological site","Ganga River and nearby ghats","Places associated with Nishadraj Guha"],
-message:"Sringaverapura is remembered as an important early stop in Ram Ji’s journey into exile."
-},
-"prayag": {
-icon:"🛕", title:"PRAYAG",
-about:"Prayag, now known as Prayagraj, is a historic city in Uttar Pradesh. It is famous for the Triveni Sangam, the meeting point of the Ganga, Yamuna and traditionally believed Saraswati rivers.",
-connection:"During his exile, Ram Ji, Sita Ji and Lakshman Ji travelled to Prayag and visited the ashram of Sage Bharadwaj. Sage Bharadwaj guided them towards Chitrakoot.",
-special:"Prayagraj is an important pilgrimage and cultural centre, especially because of the Triveni Sangam.",
-places:["Triveni Sangam","Bharadwaj Ashram","Allahabad Fort","Bade Hanuman Mandir"],
-message:"Prayag was an important stop where Ram Ji received guidance before continuing towards Chitrakoot."
-},
-"chitrakoot": {
-icon:"🌳", title:"CHITRAKOOT",
-about:"Chitrakoot is a beautiful pilgrimage town associated with the Ramayana. It is located in the Vindhya region, on the Uttar Pradesh–Madhya Pradesh border.",
-connection:"During his 14-year exile, Ram Ji, Sita Ji and Lakshman Ji spent a significant period in Chitrakoot. They lived in the forest and visited the Mandakini River.",
-special:"Chitrakoot is famous for its spiritual importance, forests, hills, rivers and many temples connected with the Ramayana tradition.",
-places:["Ramghat","Kamadgiri","Hanuman Dhara","Gupt Godavari","Sati Anasuya Ashram","Mandakini River"],
-message:"Chitrakoot is one of the most important places associated with Ram Ji's life during exile."
-},
-"dandakaranya": {
-icon:"🌲", title:"DANDAKARANYA",
-about:"Dandakaranya was a vast forest region mentioned in the Ramayana. It covered parts of present-day central and southern India.",
-connection:"During their exile, Ram Ji, Sita Ji and Lakshman Ji travelled through the forests of Dandakaranya. They met several sages and lived in the forest.",
-special:"The region is known for its forests, tribal culture, rivers and natural beauty.",
-places:["Dense forest regions","Tribal cultural areas","Waterfalls and rivers","Wildlife and natural landscapes"],
-message:"Dandakaranya represents the long forest journey of Ram Ji during his exile."
-},
-"panchavati": {
-icon:"🌿", title:"PANCHAVATI / NASHIK",
-about:"Panchavati is an important area of Nashik, Maharashtra, situated near the Godavari River.",
-connection:"Ram Ji, Sita Ji and Lakshman Ji lived at Panchavati during their exile. Many important events of the Ramayana are traditionally associated with this place, including Sita Ji's abduction by Ravana.",
-special:"Panchavati is a major pilgrimage area and is famous for its temples and connection with the Ramayana.",
-places:["Ram Kund","Kalaram Temple","Sita Gufa","Panchavati area","Godavari River ghats"],
-message:"Panchavati is one of the most important places connected with Ram Ji, Sita Ji and Lakshman Ji during their exile."
-},
-"kishkindha": {
-icon:"🐒", title:"KISHKINDHA",
-about:"Kishkindha is the ancient kingdom associated with the Vanaras in the Ramayana. It is traditionally connected with the Hampi region of Karnataka.",
-connection:"Ram Ji met Hanuman Ji and Sugriva here. Ram helped Sugriva, and the Vanara army helped Ram search for Sita Ji.",
-special:"The Hampi region is famous for its ancient monuments, rocky hills and temples.",
-places:["Hampi","Anjanadri Hill","Tungabhadra River","Virupaksha Temple","Matanga Hill"],
-message:"Kishkindha is remembered as the place where Ram Ji met Hanuman Ji."
-},
-"rameswaram": {
-icon:"🌊", title:"RAMESWARAM",
-about:"Rameswaram is a famous pilgrimage town on Pamban Island in Tamil Nadu, near the southern coast of India.",
-connection:"According to the Ramayana tradition, Ram Ji reached the southern coast with the Vanara army while preparing to travel to Lanka. The tradition associates the area with the Ram Setu.",
-special:"Rameswaram is one of India's important pilgrimage destinations and is famous for its temples and beautiful coastal surroundings.",
-places:["Ramanathaswamy Temple","Pamban Bridge","Dhanushkodi","Agni Theertham","Ram Setu area"],
-message:"Rameswaram is traditionally associated with the journey towards Lanka and the Ram Setu."
-},
-"lanka": {
-icon:"🏝️", title:"LANKA",
-about:"Lanka is the island kingdom ruled by Ravana in the Ramayana. It is traditionally associated with present-day Sri Lanka.",
-connection:"Ram Ji's army crossed towards Lanka to rescue Sita Ji. Ram Ji fought Ravana and defeated him, after which Sita Ji was reunited with Ram Ji.",
-special:"Sri Lanka is famous for its beautiful beaches, forests, mountains, ancient cities and cultural heritage.",
-places:["Sigiriya","Kandy","Galle","Colombo","Ancient Anuradhapura"],
-message:"Lanka represents the final great battle of Ram Ji's exile journey."
-}
+
+    ayodhya: {
+
+        icon: "🛕",
+
+        en: {
+            title: "AYODHYA",
+
+            aboutTitle: "About the Place",
+
+            about:
+            "Ayodhya is an ancient city on the banks of the Sarayu River in Uttar Pradesh. It is traditionally regarded as the birthplace of Lord Ram.",
+
+            connectionTitle: "Connection with Ram Ji",
+
+            connection:
+            "Ayodhya was the kingdom of Ram Ji. He left Ayodhya with Sita Ji and Lakshman Ji to begin his 14-year exile. After completing the exile, they returned to Ayodhya.",
+
+            specialTitle: "⭐ What is Special Today",
+
+            special:
+            "Ayodhya is one of the most important pilgrimage cities associated with Lord Ram. It is famous for its temples, ghats and Ramayana heritage.",
+
+            placesTitle: "📍 Famous Places Today",
+
+            places: [
+                "Ram Mandir",
+                "Hanuman Garhi",
+                "Kanak Bhawan",
+                "Saryu Ghat",
+                "Dasharath Bhawan"
+            ],
+
+            foodTitle: "🍛 Famous Food",
+
+            food:
+            "Ayodhya is known for traditional North Indian vegetarian food, sweets and local snacks.",
+
+            messageTitle: "🌟 Special Message",
+
+            message:
+            "Ayodhya represents the beginning and end of Ram Ji’s exile journey—he left from here and returned here after 14 years."
+        },
+
+        hi: {
+            title: "अयोध्या",
+
+            aboutTitle: "स्थान के बारे में",
+
+            about:
+            "अयोध्या उत्तर प्रदेश में सरयू नदी के किनारे स्थित एक प्राचीन नगर है। इसे परंपरागत रूप से भगवान राम की जन्मभूमि माना जाता है।",
+
+            connectionTitle: "राम जी से संबंध",
+
+            connection:
+            "अयोध्या राम जी का राज्य था। राम जी ने सीता जी और लक्ष्मण जी के साथ 14 वर्ष के वनवास के लिए अयोध्या छोड़ी। वनवास पूरा करने के बाद वे अयोध्या वापस लौटे।",
+
+            specialTitle: "⭐ आज की विशेषता",
+
+            special:
+            "अयोध्या भगवान राम से जुड़े सबसे महत्वपूर्ण तीर्थ नगरों में से एक है। यह अपने मंदिरों, घाटों और रामायण से जुड़ी विरासत के लिए प्रसिद्ध है।",
+
+            placesTitle: "📍 आज के प्रसिद्ध स्थान",
+
+            places: [
+                "राम मंदिर",
+                "हनुमान गढ़ी",
+                "कनक भवन",
+                "सरयू घाट",
+                "दशरथ भवन"
+            ],
+
+            foodTitle: "🍛 प्रसिद्ध भोजन",
+
+            food:
+            "अयोध्या पारंपरिक उत्तर भारतीय शाकाहारी भोजन, मिठाइयों और स्थानीय व्यंजनों के लिए प्रसिद्ध है।",
+
+            messageTitle: "🌟 विशेष संदेश",
+
+            message:
+            "अयोध्या राम जी की वनवास यात्रा की शुरुआत और अंत का प्रतीक है—उन्होंने यहीं से प्रस्थान किया और 14 वर्ष बाद यहीं लौटे।"
+        }
+    },
+
+
+    sringaverapura: {
+
+        icon: "🌊",
+
+        en: {
+            title: "SRINGAVERAPURA",
+
+            aboutTitle: "About the Place",
+
+            about:
+            "Sringaverapura was an ancient settlement situated near the Ganga River, traditionally identified with the present-day Singraur area of Uttar Pradesh.",
+
+            connectionTitle: "Connection with Ram Ji",
+
+            connection:
+            "During his exile, Ram Ji, along with Sita Ji and Lakshman Ji, reached Sringaverapura after leaving Ayodhya. The Ramayana tradition connects this place with Nishadraj Guha, who welcomed and helped them.",
+
+            specialTitle: "⭐ What is Special Today",
+
+            special:
+            "The area is important for its ancient archaeological remains and its connection with the Ramayana tradition.",
+
+            placesTitle: "📍 Famous Places / Things Today",
+
+            places: [
+                "Ancient archaeological site",
+                "Ganga River and nearby ghats",
+                "Places associated with Nishadraj Guha"
+            ],
+
+            messageTitle: "🌟 Special Point",
+
+            message:
+            "Sringaverapura is remembered as an important early stop in Ram Ji’s journey into exile."
+        },
+
+        hi: {
+            title: "श्रृंगवेरपुर",
+
+            aboutTitle: "स्थान के बारे में",
+
+            about:
+            "श्रृंगवेरपुर गंगा नदी के पास स्थित एक प्राचीन बस्ती थी, जिसे परंपरागत रूप से उत्तर प्रदेश के वर्तमान सिंगरौर क्षेत्र से जोड़ा जाता है।",
+
+            connectionTitle: "राम जी से संबंध",
+
+            connection:
+            "वनवास के दौरान राम जी, सीता जी और लक्ष्मण जी अयोध्या छोड़ने के बाद श्रृंगवेरपुर पहुँचे। रामायण की परंपरा इस स्थान को निषादराज गुह से जोड़ती है, जिन्होंने उनका स्वागत और सहायता की।",
+
+            specialTitle: "⭐ आज की विशेषता",
+
+            special:
+            "यह क्षेत्र अपने प्राचीन पुरातात्विक अवशेषों और रामायण परंपरा से जुड़े होने के कारण महत्वपूर्ण है।",
+
+            placesTitle: "📍 प्रसिद्ध स्थान / चीज़ें",
+
+            places: [
+                "प्राचीन पुरातात्विक स्थल",
+                "गंगा नदी और आसपास के घाट",
+                "निषादराज गुह से जुड़े स्थान"
+            ],
+
+            messageTitle: "🌟 विशेष बिंदु",
+
+            message:
+            "श्रृंगवेरपुर को राम जी की वनवास यात्रा के शुरुआती महत्वपूर्ण पड़ाव के रूप में याद किया जाता है।"
+        }
+    },
+
+
+    prayag: {
+
+        icon: "🛕",
+
+        en: {
+            title: "PRAYAG",
+
+            aboutTitle: "About the Place",
+
+            about:
+            "Prayag, now known as Prayagraj, is a historic city in Uttar Pradesh. It is famous for the Triveni Sangam, the meeting point of the Ganga, Yamuna and traditionally believed Saraswati rivers.",
+
+            connectionTitle: "Connection with Ram Ji",
+
+            connection:
+            "During his exile, Ram Ji, Sita Ji and Lakshman Ji travelled to Prayag and visited the ashram of Sage Bharadwaj. Sage Bharadwaj guided them towards Chitrakoot.",
+
+            specialTitle: "⭐ What is Special Today",
+
+            special:
+            "Prayagraj is an important pilgrimage and cultural centre, especially because of the Triveni Sangam.",
+
+            placesTitle: "📍 Famous Places Today",
+
+            places: [
+                "Triveni Sangam",
+                "Bharadwaj Ashram",
+                "Allahabad Fort",
+                "Bade Hanuman Mandir"
+            ],
+
+            messageTitle: "🌟 Special Point",
+
+            message:
+            "Prayag was an important stop where Ram Ji received guidance before continuing towards Chitrakoot."
+        },
+
+        hi: {
+            title: "प्रयाग",
+
+            aboutTitle: "स्थान के बारे में",
+
+            about:
+            "प्रयाग, जिसे अब प्रयागराज के नाम से जाना जाता है, उत्तर प्रदेश का एक ऐतिहासिक नगर है। यह त्रिवेणी संगम के लिए प्रसिद्ध है, जहाँ गंगा, यमुना और परंपरागत रूप से मानी जाने वाली सरस्वती नदियाँ मिलती हैं।",
+
+            connectionTitle: "राम जी से संबंध",
+
+            connection:
+            "वनवास के दौरान राम जी, सीता जी और लक्ष्मण जी प्रयाग पहुँचे और ऋषि भारद्वाज के आश्रम गए। ऋषि भारद्वाज ने उन्हें चित्रकूट जाने का मार्ग बताया।",
+
+            specialTitle: "⭐ आज की विशेषता",
+
+            special:
+            "प्रयागराज एक महत्वपूर्ण तीर्थ और सांस्कृतिक केंद्र है, विशेष रूप से त्रिवेणी संगम के कारण।",
+
+            placesTitle: "📍 आज के प्रसिद्ध स्थान",
+
+            places: [
+                "त्रिवेणी संगम",
+                "भारद्वाज आश्रम",
+                "इलाहाबाद किला",
+                "बड़े हनुमान मंदिर"
+            ],
+
+            messageTitle: "🌟 विशेष बिंदु",
+
+            message:
+            "प्रयाग एक महत्वपूर्ण पड़ाव था जहाँ राम जी ने चित्रकूट जाने से पहले मार्गदर्शन प्राप्त किया।"
+        }
+    },
+
+
+    chitrakoot: {
+
+        icon: "🌳",
+
+        en: {
+            title: "CHITRAKOOT",
+
+            aboutTitle: "About the Place",
+
+            about:
+            "Chitrakoot is a beautiful pilgrimage town associated with the Ramayana. It is located in the Vindhya region, on the Uttar Pradesh–Madhya Pradesh border.",
+
+            connectionTitle: "Connection with Ram Ji",
+
+            connection:
+            "During his 14-year exile, Ram Ji, Sita Ji and Lakshman Ji spent a significant period in Chitrakoot. They lived in the forest and visited the Mandakini River.",
+
+            specialTitle: "⭐ What is Special Today",
+
+            special:
+            "Chitrakoot is famous for its spiritual importance, forests, hills, rivers and many temples connected with the Ramayana tradition.",
+
+            placesTitle: "📍 Famous Places Today",
+
+            places: [
+                "Ramghat",
+                "Kamadgiri",
+                "Hanuman Dhara",
+                "Gupt Godavari",
+                "Sati Anasuya Ashram",
+                "Mandakini River"
+            ],
+
+            messageTitle: "🌟 Special Point",
+
+            message:
+            "Chitrakoot is one of the most important places associated with Ram Ji's life during exile."
+        },
+
+        hi: {
+            title: "चित्रकूट",
+
+            aboutTitle: "स्थान के बारे में",
+
+            about:
+            "चित्रकूट रामायण से जुड़ा एक सुंदर तीर्थ नगर है। यह उत्तर प्रदेश और मध्य प्रदेश की सीमा पर विंध्य क्षेत्र में स्थित है।",
+
+            connectionTitle: "राम जी से संबंध",
+
+            connection:
+            "अपने 14 वर्ष के वनवास के दौरान राम जी, सीता जी और लक्ष्मण जी ने चित्रकूट में काफी समय बिताया। वे वन में रहे और मंदाकिनी नदी के पास गए।",
+
+            specialTitle: "⭐ आज की विशेषता",
+
+            special:
+            "चित्रकूट अपने आध्यात्मिक महत्व, जंगलों, पहाड़ियों, नदियों और रामायण परंपरा से जुड़े अनेक मंदिरों के लिए प्रसिद्ध है।",
+
+            placesTitle: "📍 आज के प्रसिद्ध स्थान",
+
+            places: [
+                "रामघाट",
+                "कामदगिरि",
+                "हनुमान धारा",
+                "गुप्त गोदावरी",
+                "सती अनुसूया आश्रम",
+                "मंदाकिनी नदी"
+            ],
+
+            messageTitle: "🌟 विशेष बिंदु",
+
+            message:
+            "चित्रकूट वनवास के दौरान राम जी के जीवन से जुड़े सबसे महत्वपूर्ण स्थानों में से एक है।"
+        }
+    },
+
+
+    dandakaranya: {
+
+        icon: "🌲",
+
+        en: {
+            title: "DANDAKARANYA",
+
+            aboutTitle: "About the Place",
+
+            about:
+            "Dandakaranya was a vast forest region mentioned in the Ramayana. It covered parts of present-day central and southern India.",
+
+            connectionTitle: "Connection with Ram Ji",
+
+            connection:
+            "During their exile, Ram Ji, Sita Ji and Lakshman Ji travelled through the forests of Dandakaranya. They met several sages and lived in the forest.",
+
+            specialTitle: "⭐ What is Special Today",
+
+            special:
+            "The region is known for its forests, tribal culture, rivers and natural beauty.",
+
+            placesTitle: "📍 Famous Places / Things Today",
+
+            places: [
+                "Dense forest regions",
+                "Tribal cultural areas",
+                "Waterfalls and rivers",
+                "Wildlife and natural landscapes"
+            ],
+
+            messageTitle: "🌟 Special Point",
+
+            message:
+            "Dandakaranya represents the long forest journey of Ram Ji during his exile."
+        },
+
+        hi: {
+            title: "दंडकारण्य",
+
+            aboutTitle: "स्थान के बारे में",
+
+            about:
+            "दंडकारण्य रामायण में वर्णित एक विशाल वन क्षेत्र था। यह वर्तमान मध्य और दक्षिण भारत के कुछ हिस्सों में फैला हुआ था।",
+
+            connectionTitle: "राम जी से संबंध",
+
+            connection:
+            "वनवास के दौरान राम जी, सीता जी और लक्ष्मण जी दंडकारण्य के वनों से होकर गुजरे। उन्होंने कई ऋषियों से मुलाकात की और वन में जीवन बिताया।",
+
+            specialTitle: "⭐ आज की विशेषता",
+
+            special:
+            "यह क्षेत्र अपने जंगलों, जनजातीय संस्कृति, नदियों और प्राकृतिक सुंदरता के लिए जाना जाता है।",
+
+            placesTitle: "📍 प्रसिद्ध स्थान / चीज़ें",
+
+            places: [
+                "घने वन क्षेत्र",
+                "जनजातीय सांस्कृतिक क्षेत्र",
+                "झरने और नदियाँ",
+                "वन्यजीव और प्राकृतिक दृश्य"
+            ],
+
+            messageTitle: "🌟 विशेष बिंदु",
+
+            message:
+            "दंडकारण्य राम जी की वनवास यात्रा की लंबी वन यात्रा का प्रतीक है।"
+        }
+    },
+
+
+    panchavati: {
+
+        icon: "🌿",
+
+        en: {
+            title: "PANCHAVATI / NASHIK",
+
+            aboutTitle: "About the Place",
+
+            about:
+            "Panchavati is an important area of Nashik, Maharashtra, situated near the Godavari River.",
+
+            connectionTitle: "Connection with Ram Ji",
+
+            connection:
+            "Ram Ji, Sita Ji and Lakshman Ji lived at Panchavati during their exile. Many important events of the Ramayana are traditionally associated with this place, including Sita Ji's abduction by Ravana.",
+
+            specialTitle: "⭐ What is Special Today",
+
+            special:
+            "Panchavati is a major pilgrimage area and is famous for its temples and connection with the Ramayana.",
+
+            placesTitle: "📍 Famous Places Today",
+
+            places: [
+                "Ram Kund",
+                "Kalaram Temple",
+                "Sita Gufa",
+                "Panchavati area",
+                "Godavari River ghats"
+            ],
+
+            messageTitle: "🌟 Special Point",
+
+            message:
+            "Panchavati is one of the most important places connected with Ram Ji, Sita Ji and Lakshman Ji during their exile."
+        },
+
+        hi: {
+            title: "पंचवटी / नासिक",
+
+            aboutTitle: "स्थान के बारे में",
+
+            about:
+            "पंचवटी महाराष्ट्र के नासिक का एक महत्वपूर्ण क्षेत्र है, जो गोदावरी नदी के पास स्थित है।",
+
+            connectionTitle: "राम जी से संबंध",
+
+            connection:
+            "राम जी, सीता जी और लक्ष्मण जी ने अपने वनवास के दौरान पंचवटी में निवास किया। रामायण की कई महत्वपूर्ण घटनाएँ परंपरागत रूप से इस स्थान से जुड़ी हैं, जिनमें रावण द्वारा सीता जी का हरण भी शामिल है।",
+
+            specialTitle: "⭐ आज की विशेषता",
+
+            special:
+            "पंचवटी एक प्रमुख तीर्थ क्षेत्र है और अपने मंदिरों तथा रामायण से जुड़े होने के लिए प्रसिद्ध है।",
+
+            placesTitle: "📍 आज के प्रसिद्ध स्थान",
+
+            places: [
+                "राम कुंड",
+                "कालाराम मंदिर",
+                "सीता गुफा",
+                "पंचवटी क्षेत्र",
+                "गोदावरी नदी के घाट"
+            ],
+
+            messageTitle: "🌟 विशेष बिंदु",
+
+            message:
+            "पंचवटी वनवास के दौरान राम जी, सीता जी और लक्ष्मण जी से जुड़े सबसे महत्वपूर्ण स्थानों में से एक है।"
+        }
+    },
+
+
+    kishkindha: {
+
+        icon: "🐒",
+
+        en: {
+            title: "KISHKINDHA",
+
+            aboutTitle: "About the Place",
+
+            about:
+            "Kishkindha is the ancient kingdom associated with the Vanaras in the Ramayana. It is traditionally connected with the Hampi region of Karnataka.",
+
+            connectionTitle: "Connection with Ram Ji",
+
+            connection:
+            "Ram Ji met Hanuman Ji and Sugriva here. Ram helped Sugriva, and the Vanara army helped Ram search for Sita Ji.",
+
+            specialTitle: "⭐ What is Special Today",
+
+            special:
+            "The Hampi region is famous for its ancient monuments, rocky hills and temples.",
+
+            placesTitle: "📍 Famous Places Today",
+
+            places: [
+                "Hampi",
+                "Anjanadri Hill",
+                "Tungabhadra River",
+                "Virupaksha Temple",
+                "Matanga Hill"
+            ],
+
+            messageTitle: "🌟 Special Point",
+
+            message:
+            "Kishkindha is remembered as the place where Ram Ji met Hanuman Ji."
+        },
+
+        hi: {
+            title: "किष्किंधा",
+
+            aboutTitle: "स्थान के बारे में",
+
+            about:
+            "किष्किंधा रामायण में वानरों से जुड़े प्राचीन राज्य के रूप में वर्णित है। इसे परंपरागत रूप से कर्नाटक के हम्पी क्षेत्र से जोड़ा जाता है।",
+
+            connectionTitle: "राम जी से संबंध",
+
+            connection:
+            "राम जी की मुलाकात यहाँ हनुमान जी और सुग्रीव से हुई। राम जी ने सुग्रीव की सहायता की और वानर सेना ने सीता जी की खोज में राम जी की सहायता की।",
+
+            specialTitle: "⭐ आज की विशेषता",
+
+            special:
+            "हम्पी क्षेत्र अपने प्राचीन स्मारकों, चट्टानी पहाड़ियों और मंदिरों के लिए प्रसिद्ध है।",
+
+            placesTitle: "📍 आज के प्रसिद्ध स्थान",
+
+            places: [
+                "हम्पी",
+                "अंजनाद्रि पहाड़ी",
+                "तुंगभद्रा नदी",
+                "विरुपाक्ष मंदिर",
+                "मातंग पहाड़ी"
+            ],
+
+            messageTitle: "🌟 विशेष बिंदु",
+
+            message:
+            "किष्किंधा को उस स्थान के रूप में याद किया जाता है जहाँ राम जी की मुलाकात हनुमान जी से हुई।"
+        }
+    },
+
+
+    rameswaram: {
+
+        icon: "🌊",
+
+        en: {
+            title: "RAMESWARAM",
+
+            aboutTitle: "About the Place",
+
+            about:
+            "Rameswaram is a famous pilgrimage town on Pamban Island in Tamil Nadu, near the southern coast of India.",
+
+            connectionTitle: "Connection with Ram Ji",
+
+            connection:
+            "According to the Ramayana tradition, Ram Ji reached the southern coast with the Vanara army while preparing to travel to Lanka. The tradition associates the area with the Ram Setu.",
+
+            specialTitle: "⭐ What is Special Today",
+
+            special:
+            "Rameswaram is one of India's important pilgrimage destinations and is famous for its temples and beautiful coastal surroundings.",
+
+            placesTitle: "📍 Famous Places Today",
+
+            places: [
+                "Ramanathaswamy Temple",
+                "Pamban Bridge",
+                "Dhanushkodi",
+                "Agni Theertham",
+                "Ram Setu area"
+            ],
+
+            messageTitle: "🌟 Special Point",
+
+            message:
+            "Rameswaram is traditionally associated with the journey towards Lanka and the Ram Setu."
+        },
+
+        hi: {
+            title: "रामेश्वरम",
+
+            aboutTitle: "स्थान के बारे में",
+
+            about:
+            "रामेश्वरम तमिलनाडु में पंबन द्वीप पर स्थित एक प्रसिद्ध तीर्थ नगर है, जो भारत के दक्षिणी तट के पास है।",
+
+            connectionTitle: "राम जी से संबंध",
+
+            connection:
+            "रामायण की परंपरा के अनुसार, लंका जाने की तैयारी करते समय राम जी वानर सेना के साथ दक्षिणी तट पर पहुँचे। यह क्षेत्र राम सेतु से जुड़ा माना जाता है।",
+
+            specialTitle: "⭐ आज की विशेषता",
+
+            special:
+            "रामेश्वरम भारत के महत्वपूर्ण तीर्थ स्थलों में से एक है और अपने मंदिरों तथा सुंदर समुद्री वातावरण के लिए प्रसिद्ध है।",
+
+            placesTitle: "📍 आज के प्रसिद्ध स्थान",
+
+            places: [
+                "रामनाथस्वामी मंदिर",
+                "पंबन ब्रिज",
+                "धनुषकोडी",
+                "अग्नि तीर्थम",
+                "राम सेतु क्षेत्र"
+            ],
+
+            messageTitle: "🌟 विशेष बिंदु",
+
+            message:
+            "रामेश्वरम परंपरागत रूप से लंका की यात्रा और राम सेतु से जुड़ा हुआ है।"
+        }
+    },
+
+
+    lanka: {
+
+        icon: "🏝️",
+
+        en: {
+            title: "LANKA",
+
+            aboutTitle: "About the Place",
+
+            about:
+            "Lanka is the island kingdom ruled by Ravana in the Ramayana. It is traditionally associated with present-day Sri Lanka.",
+
+            connectionTitle: "Connection with Ram Ji",
+
+            connection:
+            "Ram Ji's army crossed towards Lanka to rescue Sita Ji. Ram Ji fought Ravana and defeated him, after which Sita Ji was reunited with Ram Ji.",
+
+            specialTitle: "⭐ What is Special Today",
+
+            special:
+            "Sri Lanka is famous for its beautiful beaches, forests, mountains, ancient cities and cultural heritage.",
+
+            placesTitle: "📍 Famous Places Today",
+
+            places: [
+                "Sigiriya",
+                "Kandy",
+                "Galle",
+                "Colombo",
+                "Ancient Anuradhapura"
+            ],
+
+            messageTitle: "🌟 Special Point",
+
+            message:
+            "Lanka represents the final great battle of Ram Ji's exile journey."
+        },
+
+        hi: {
+            title: "लंका",
+
+            aboutTitle: "स्थान के बारे में",
+
+            about:
+            "लंका रामायण में रावण द्वारा शासित द्वीप राज्य था। इसे परंपरागत रूप से वर्तमान श्रीलंका से जोड़ा जाता है।",
+
+            connectionTitle: "राम जी से संबंध",
+
+            connection:
+            "सीता जी को बचाने के लिए राम जी की सेना लंका की ओर गई। राम जी ने रावण से युद्ध किया और उसे पराजित किया, जिसके बाद सीता जी राम जी से पुनः मिलीं।",
+
+            specialTitle: "⭐ आज की विशेषता",
+
+            special:
+            "श्रीलंका अपने सुंदर समुद्र तटों, जंगलों, पहाड़ों, प्राचीन नगरों और सांस्कृतिक विरासत के लिए प्रसिद्ध है।",
+
+            placesTitle: "📍 आज के प्रसिद्ध स्थान",
+
+            places: [
+                "सिगिरिया",
+                "कैंडी",
+                "गाले",
+                "कोलंबो",
+                "प्राचीन अनुराधापुर"
+            ],
+
+            messageTitle: "🌟 विशेष बिंदु",
+
+            message:
+            "लंका राम जी की वनवास यात्रा के अंतिम महान युद्ध का प्रतीक है।"
+        }
+    }
+
 };
 
-function getPlace(){
-var params=new URLSearchParams(window.location.search);
-return params.get("place");
+
+/* =====================================================
+   LANGUAGE
+   ===================================================== */
+
+var currentLanguage = localStorage.getItem("ramLanguage") || "en";
+
+
+function setLanguage(language) {
+
+    currentLanguage = language;
+
+    localStorage.setItem("ramLanguage", language);
+
+    render();
+
 }
 
-function show(){
-var key=getPlace();
-var data=locations[key];
-var app=document.getElementById("app");
 
-if(!data){
-app.innerHTML='<div class="error"><div class="icon">🕉️</div><h1>Location Not Found</h1><p>Please scan a valid location QR code.</p></div>';
-return;
+/* =====================================================
+   SHOW LOCATION
+   ===================================================== */
+
+function render() {
+
+    var params = new URLSearchParams(window.location.search);
+
+    var place = params.get("place");
+
+    var app = document.getElementById("app");
+
+    var englishButton = document.getElementById("englishBtn");
+
+    var hindiButton = document.getElementById("hindiBtn");
+
+
+    /* Highlight language button */
+
+    englishButton.classList.remove("active");
+
+    hindiButton.classList.remove("active");
+
+    if (currentLanguage === "hi") {
+
+        hindiButton.classList.add("active");
+
+        document.documentElement.lang = "hi";
+
+    } else {
+
+        englishButton.classList.add("active");
+
+        document.documentElement.lang = "en";
+
+    }
+
+
+    /* Invalid location */
+
+    if (!place || !locations[place]) {
+
+        app.innerHTML = `
+            <div class="error">
+
+                <div class="icon">🕉️</div>
+
+                <h1>
+                    ${currentLanguage === "hi"
+                        ? "स्थान नहीं मिला"
+                        : "Location Not Found"}
+                </h1>
+
+                <p>
+                    ${currentLanguage === "hi"
+                        ? "कृपया किसी मान्य स्थान का QR कोड स्कैन करें।"
+                        : "Please scan a valid location QR code."}
+                </p>
+
+            </div>
+        `;
+
+        return;
+    }
+
+
+    var data = locations[place];
+
+    var text = data[currentLanguage];
+
+
+    /* Famous places */
+
+    var placesHTML = "";
+
+    if (text.places && text.places.length > 0) {
+
+        placesHTML = `
+            <section>
+
+                <h2>${text.placesTitle}</h2>
+
+                <ul>
+
+                    ${text.places.map(function(item) {
+
+                        return "<li>" + item + "</li>";
+
+                    }).join("")}
+
+                </ul>
+
+            </section>
+        `;
+
+    }
+
+
+    /* Food */
+
+    var foodHTML = "";
+
+    if (text.food) {
+
+        foodHTML = `
+            <section>
+
+                <h2>${text.foodTitle}</h2>
+
+                <p>${text.food}</p>
+
+            </section>
+        `;
+
+    }
+
+
+    /* Final page */
+
+    app.innerHTML = `
+
+        <div class="icon">
+            ${data.icon}
+        </div>
+
+        <h1>
+            ${text.title}
+        </h1>
+
+        <div class="subtitle">
+
+            ${currentLanguage === "hi"
+                ? "राम जी की वनवास यात्रा"
+                : "Ram Ji’s Exile Journey"}
+
+        </div>
+
+
+        <section>
+
+            <h2>
+                ${text.aboutTitle}
+            </h2>
+
+            <p>
+                ${text.about}
+            </p>
+
+        </section>
+
+
+        <section>
+
+            <h2>
+                ${text.connectionTitle}
+            </h2>
+
+            <p>
+                ${text.connection}
+            </p>
+
+        </section>
+
+
+        <section>
+
+            <h2>
+                ${text.specialTitle}
+            </h2>
+
+            <p>
+                ${text.special}
+            </p>
+
+        </section>
+
+
+        ${placesHTML}
+
+        ${foodHTML}
+
+
+        <section class="special">
+
+            <h2>
+                ${text.messageTitle}
+            </h2>
+
+            <p>
+                ${text.message}
+            </p>
+
+        </section>
+
+    `;
+
 }
 
-var places="";
-if(data.places){
-places="<section><h2>📍 Famous Places Today</h2><ul>";
-for(var i=0;i<data.places.length;i++){places+="<li>"+data.places[i]+"</li>";}
-places+="</ul></section>";
-}
 
-var food="";
-if(data.food){
-food="<section><h2>🍛 Famous Food</h2><p>"+data.food+"</p></section>";
-}
+/* Start page */
 
-app.innerHTML=
-'<div class="icon">'+data.icon+'</div>'+
-'<h1>'+data.title+'</h1>'+
-'<div class="subtitle">Ram Ji’s Exile Journey</div>'+
-'<section><h2>About the Place</h2><p>'+data.about+'</p></section>'+
-'<section><h2>Connection with Ram Ji</h2><p>'+data.connection+'</p></section>'+
-'<section><h2>⭐ What is Special Today</h2><p>'+data.special+'</p></section>'+
-places+food+
-'<section class="special"><h2>🌟 Special Message</h2><p>'+data.message+'</p></section>';
-}
+render();
 
-show();
 </script>
+
 </body>
 </html>
